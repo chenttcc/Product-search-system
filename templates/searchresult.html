@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+	<!-- BASICS -->
+        <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Amoeba free one page responsive bootstrap site template</title>
+        <meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="/static/css/isotope.css" media="screen" />
+		<link rel="stylesheet" href="/static/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/static/css/bootstrap.css">
+		<link rel="stylesheet" href="/static/css/bootstrap-theme.css">
+        <link rel="stylesheet" href="/static/css/style.css">
+        <link rel="stylesheet" href="/static/vendor/bootstrap-icons/bootstrap-icons.css">
+        <link rel="stylesheet" href="/static/vendor/boxicons/css/boxicons.min.css">
+		<!-- skin -->
+		<link rel="stylesheet" href="/static/skin/default.css">
+        <script  type="text/javascript" src="/static/vendor/echarts/echarts.min.js"></script>
+        <style>
+
+        </style>
+    </head>
+	 
+    <body onload='init()'>
+		<section id="header" class="appear"></section>
+		<div class="navbar navbar-fixed-top" role="navigation" data-0="line-height:100px; height:100px; background-color:rgba(0,0,0,0.3);" data-300="line-height:60px; height:60px; background-color:rgba(0,0,0,1);">
+			 <div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="fa fa-bars color-white"></span>
+					</button>
+					<h1><a class="navbar-brand" href="index.html" data-0="line-height:90px;" data-300="line-height:50px;">			Gsearch
+					</a></h1>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav" data-0="margin-top:20px;" data-300="margin-top:5px;">
+						<li><a href="index.html">Home</a></li>
+						<li class="active"><a href="#section-about">Searchresult</a></li>
+					</ul>
+				</div><!--/.navbar-collapse -->
+			</div>
+		</div>
+
+    <section class="featured2">
+        <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3" ><h5 class="card-title">搜索结果</h5></div>
+                    <div class="col-md-9">
+                        <div class="search-bar2">
+                          <form class="search-form d-flex align-items-center" method="POST" action="#">
+                            <input id="search-1" type="text" name="query" placeholder="Search" title="输入搜索内容" value="{{ query }}">
+                            <button type="button" title="Search"  onclick="gsearch()">
+                                <i class="bi bi-search"></i>
+                            </button>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-3" ><h5 class="c-title">推荐搜索词：</h5></div>
+                    <div class="col-md-9">
+                        <div class="row xieti">
+                            {% for re in recommendlist %}
+                            <div class="col-md-2"><i class="bi bi-arrow-down-right-circle" onclick="jumpsearch(this)">{{ re }}</i></div>
+                            {% endfor %}
+                         </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-3" ><h5 class="c-title">Tag 选择：</h5></div>
+                    <div class="col-md-9">
+                        <div class="row xieti tagchoose" >
+                            <div class="col-md-2"><input id="tag_1" type="checkbox" name="select" value="1">包邮</div>
+                            <div class="col-md-2"><input id="tag_2" type="checkbox" name="select" value="2">优惠</div>
+                            <div class="col-md-2"><input id="tag_3" type="checkbox" name="select" value="3" >新品</div>
+                            <div class="col-md-2"><input id="tag_4" type="checkbox" name="select" value="4" >京东物流</div>
+                            <div class="col-md-1"style="float:right;margin-right: 30px;"><button type="button" class="btn btn-outline-primary" onclick="tagsearch()">提交</button></div>
+                         </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-3"><h5 class="c-title">排序方式选择：</h5></div>
+                    <div class="col-md-9" id="order-method" name="0">
+                        <div class="row xieti" >
+                            <div class="col-md-2" onclick="order1()">价格排序 <i id="sort_1" class="bi bi-caret-up"></i></div>
+                            <div class="col-md-2" onclick="order2()">好评排序<i id="sort_2" class="bi bi-caret-down"></i></div>
+                            <div class="col-md-2" onclick="order3()" style="border-right: 2px solid #ced4da;">销量排序<i id="sort_3" class="bi bi-caret-down"></i></div>
+                            <div class="col-md-2">价格区间：</div>
+                            <div class="col-md-2" style="width:140px;">
+                                <div class="col-l">最小</div>
+                                <div class="col-sm-10" >
+                                <input type="text" class="form-control" id="minprice" style="height: 80%;" placeholder="0" value="">
+                              </div></div>
+                            <div class="col-md-2" style="width:140px;">
+                                <div class="col-l">最大</div>
+                                <div class="col-sm-10" >
+                                <input type="text" class="form-control" style="height: 80%;" id="maxprice" placeholder="99999" value="">
+                              </div></div>
+                            <div class="col-md-1"><button type="button"  class="btn btn-outline-primary" onclick="pricesearch()">提交</button></div>
+                         </div>
+                    </div>
+                </div>
+
+            <ul class="list-group-2 scroll" id="goodslist">
+                {% for good in items %}
+                <li class="list-group-item-2" >
+                    <div class="row" style="padding-right: 30px;">
+                        <div class="col-md-4 goodsb" style="text-align: center;height:180px;">
+                            <div class="row vertical-middle" style="height:130px;">
+                                 <img style="margin:0 auto;"src="{{ good.imgpath }}" alt="暂无图片" class="img-rounded goodspic">
+                                 <div class="subname"  >{{ good.subname }}</div>
+                            </div>
+                            <div class="row" style="margin-bottom:5px;height:50px;">
+                                {% for tag in good.salestag %}
+                                <span class="badge bg-light text-dark"><i class="bi bi-star me-1"></i> {{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row vertical-middle goodsb" style="text-align: center;height:50px;">
+                                <div class="col-md-11" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">
+                                    <strong >{{ good.name }}</strong>
+                                </div>
+                                <div class="col-md-1">
+                                    <i class="bi bi-bar-chart-line"  name="{{ good.sku_id }}" onclick="open_detail(this)"></i>
+                                </div>
+
+                            </div>
+                            <div class="row vertical-middle goodsb" style="text-align: center;height:80px;">
+                                <div class="col-md-4" style="border-right: 2px solid #ced4da;">
+                                    <div class="row">
+                                        <div class="col-md-4"> 价格</div>
+                                        <div class="col-md-8 highlight"style="color:#e4393c"> {{ good.price }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" style="border-right: 2px solid #ced4da;">
+                                    <div class="row">
+                                        <div class="col-md-5"> 好评率</div>
+                                        <div class="col-md-7 highlight"style="color:LightSalmon"> {{ good.commentrate }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12"> 近期评论数</div>
+
+                                    </div>
+                                    <div class="row">
+                                    <div class="col-md-12 highlight" style="color:SkyBlue;"> {{ good.commentnum }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row vertical-middle goodsb" style="text-align: center;height:50px;">
+                                <div class="col-md-12">
+                                    {% for tag in good.fixtags %}
+                                    <span class="badge bg-secondary"><i class="bi bi-collection me-1"></i> {{ tag }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row" style="padding-right: 30px;height:10px;">
+                    </div>
+
+                </li>
+                {% endfor %}
+              </ul>
+
+
+
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+		
+	<section id="footer" class="section footer">
+		<div class="container">
+			<div class="row animated opacity mar-bot20" data-andown="fadeIn" data-animation="animation">
+				<div class="col-sm-12 align-center">
+                    <ul class="social-network social-circle">
+                        <li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>
+                        <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>				
+				</div>
+			</div>
+
+			<div class="row align-center copyright">
+					<div class="col-sm-12"><p>Copyright &copy; 2021 Gsearch - by <a href="http://bootstraptaste.com">tcc</a></p></div>
+			</div>
+		</div>
+
+	</section>
+
+     <div class="wrap" id="cover">
+    </div>
+    <div class="box" id="detail_pic">
+        <div class="outcard">
+        <div class="card1" >
+            <div class="card-body" style="height:50px;">
+              <h5 class="card-title1">词云图</h5>
+            </div>
+            <img src="" class="card-img-bsottom ciyunpic" alt="暂无图片">
+          </div>
+        <div class="card1" >
+            <div class="card-body" style="height:50px;">
+              <h5 class="card-title1">聚类散点</h5>
+            </div>
+            <div id="ss" style="width:450px;height: 300px;" ></div>
+
+        </div>
+
+        <div class="card1"  style="height:350px;">
+            <div class="card-body" style="height:50px;">
+              <h5 class="card-title1">雷达图</h5>
+            </div>
+            <div id="s1" style="width:450px;height: 300px;" ></div>
+          </div>
+        </div>
+        <button class="btn btn-default" type="submit" onclick="close_detail()" style="display:inline-block;">关闭</button>
+    </div>
+	<a href="#header" class="scrollup"><i class="fa fa-chevron-up"></i></a>	
+
+	<script  type="text/javascript" src="/static/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+	<script  type="text/javascript" src="/static/js/jquery.js"></script>
+	<script  type="text/javascript" src="/static/js/jquery.easing.1.3.js"></script>
+    <script  type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+	<script  type="text/javascript" src="/static/js/jquery.isotope.min.js"></script>
+	<script  type="text/javascript" src="/static/js/jquery.nicescroll.min.js"></script>
+	<script  type="text/javascript" src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
+	<script  type="text/javascript" src="/static/js/skrollr.min.js"></script>
+	<script  type="text/javascript" src="/static/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+	<script  type="text/javascript" src="/static/js/jquery.localscroll-1.2.7-min.js"></script>
+	<script  type="text/javascript" src="/static/js/stellar.js"></script>
+	<script  type="text/javascript" src="/static/js/jquery.appear.js"></script>
+	<script  type="text/javascript" src="/static/js/validate.js"></script>
+    <script  type="text/javascript" src="/static/js/main.js"></script>
+    <script  type="text/javascript" src="/static/vendor/echarts/echarts.min.js"></script>
+        <script type="text/javascript">
+            function init() {
+                var tags = {{ tags|safe }}
+                for (var i in tags) {
+                    if (tags[i] != "0"){document.getElementById("tag_" + tags[i]).setAttribute('checked', 'checked');}
+                }
+            }
+            function refreshgoods(goods){
+                var tbody=document.getElementById("goodslist");
+                tbody.innerHTML=""
+                console.log(goods.length)
+                for (var i = 0, len = goods.length; i < len; i++) {
+                    hang = document.createElement("li");
+                    hang.setAttribute('class','list-group-item-2')
+                    var eachgoods = goods[i]
+                    var markettags=eachgoods['salestag']
+                    var sales=""
+                    for (var j = 0, lens = markettags.length; j< lens; j++) {
+                        sales=sales+'<span class="badge bg-light text-dark"><i class="bi bi-star me-1"></i> '+markettags[j]+'</span>'
+                    }
+                    var fixtags=eachgoods['fixtags']
+                    var fix=""
+                    for (var m = 0, lenm = fixtags.length; m< lenm; m++) {
+                        fix=fix+'<span class="badge bg-secondary"><i class="bi bi-collection me-1"></i>'+fixtags[m]+'</span>'
+                    }
+
+                    hang.innerHTML='<div class="row" style="padding-right: 30px;"><div class="col-md-4 goodsb" style="text-align: center;height:180px;">'+
+                    '<div class="row vertical-middle" style="height:130px;">'+
+                     '<img style="margin:0 auto;"src="'+eachgoods['imgpath']+'" alt="..." class="img-rounded goodspic"><div class="subname"  >'+eachgoods['subname']+'</div>'+
+                    '</div><div class="row" style="margin-bottom:5px;height:50px;">'+sales+'</div></div><div class="col-md-8">'+
+                    '<div class="row vertical-middle goodsb" style="text-align: center;height:50px;"><div class="col-md-11" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">'+
+                        '<strong>'+eachgoods['name']+'</strong></div><div class="col-md-1"><i class="bi bi-bar-chart-line" name="'+ eachgoods['sku_id']+
+                    '" onclick="open_detail(this)"></i>'+
+                    '</div></div><div class="row vertical-middle goodsb" style="text-align: center;height:80px;"><div class="col-md-4" style="border-right: 2px solid #ced4da;">'+
+                   ' <div class="row"><div class="col-md-4"> 价格</div><div class="col-md-8 highlight"style="color:#e4393c">'+ eachgoods['price']
+                    +'</div></div></div><div class="col-md-4" style="border-right: 2px solid #ced4da;"><div class="row"><div class="col-md-5"> 好评率</div>'+
+                    '<div class="col-md-7 highlight"style="color:LightSalmon">'+ eachgoods['commentrate']+'</div></div></div><div class="col-md-4"><div class="row">'+
+                    '<div class="col-md-12"> 近期评论数</div></div><div class="row"><div class="col-md-12 highlight" style="color:SkyBlue;">'+
+                    eachgoods['commentnum']+'</div></div></div></div><div class="row vertical-middle goodsb" style="text-align: center;height:50px;">'+
+                    '<div class="col-md-12">'+fix+'</div></div></div></div><div class="row" style="padding-right: 30px;height:10px;"></div>'
+                    tbody.appendChild(hang)
+                }
+            }
+            function gsearch() {
+                var searchquery = document.getElementById("search-1").value;
+                location.href = 'http://127.0.0.1:8000/result/query='+searchquery+'/tag=0/'
+        }
+            function order1(){
+                 var ibutton = document.getElementById("sort_1");
+                 var ibuttonname=ibutton.className;
+
+                 if (ibuttonname == "bi bi-caret-up" || ibuttonname == "bi bi-caret-down-fill") {
+                     ibutton.setAttribute('class', 'bi bi-caret-up-fill');
+{#                     正序排序#}
+                     document.getElementById("order-method").setAttribute("name","1")
+                     var order_m = "1"
+                     document.getElementById("sort_2").setAttribute('class', 'bi bi-caret-down');
+                     document.getElementById("sort_3").setAttribute('class', 'bi bi-caret-down');
+                 }
+                else if (ibuttonname == "bi bi-caret-up-fill"){
+                     ibutton.setAttribute('class', 'bi bi-caret-down-fill');
+{#                     降序排序#}
+                     document.getElementById("order-method").setAttribute("name","2")
+                     var order_m = "2"
+                     document.getElementById("sort_2").setAttribute('class', 'bi bi-caret-down');
+                     document.getElementById("sort_3").setAttribute('class', 'bi bi-caret-down');
+                 }
+                $.ajax({url:window.location.href,
+                      type:'POST',
+                      data:{'entrance':'order','method':order_m,csrfmiddlewaretoken: '{{ csrf_token }}'},
+                      dataType:'JSON',
+                      traditional:true,
+                      success:function(arg){
+                            if(arg.status){
+                                var goods=arg.message;
+                                console.log(goods)
+                                refreshgoods(goods)
+                       }
+                            }}
+                    )
+            }
+
+            function order2(){
+                 var ibutton = document.getElementById("sort_2");
+                 var ibuttonname=ibutton.className;
+                 if (ibuttonname == "bi bi-caret-down" || ibuttonname == "bi bi-caret-up-fill") {
+                     ibutton.setAttribute('class', 'bi bi-caret-down-fill');
+{#                     降序排序#}
+                     document.getElementById("order-method").setAttribute("name","4")
+                      var order_m = "4"
+                     document.getElementById("sort_1").setAttribute('class', 'bi bi-caret-up');
+                     document.getElementById("sort_3").setAttribute('class', 'bi bi-caret-down');
+                 }
+                else if (ibuttonname == "bi bi-caret-down-fill"){
+                     ibutton.setAttribute('class', 'bi bi-caret-up-fill');
+{#                     正序排序#}
+                     document.getElementById("order-method").setAttribute("name","3")
+                      var order_m="3"
+                     document.getElementById("sort_1").setAttribute('class', 'bi bi-caret-up');
+                     document.getElementById("sort_3").setAttribute('class', 'bi bi-caret-down');
+                 }
+                $.ajax({url:window.location.href,
+                      type:'POST',
+                      data:{'entrance':'order','method':order_m,csrfmiddlewaretoken: '{{ csrf_token }}'},
+                      dataType:'JSON',
+                      traditional:true,
+                      success:function(arg){
+                            if(arg.status){
+                                var goods=arg.message;
+                                console.log(goods)
+                                refreshgoods(goods)
+                       }
+                            }}
+                    )
+            }
+
+            function order3(){
+                 var ibutton = document.getElementById("sort_3");
+                 var ibuttonname=ibutton.className;
+                 if (ibuttonname == "bi bi-caret-down"|| ibuttonname == "bi bi-caret-up-fill") {
+                     ibutton.setAttribute('class', 'bi bi-caret-down-fill');
+{#                     降序排序#}
+                     document.getElementById("order-method").setAttribute("name","6")
+                      var order_m = "6"
+                     document.getElementById("sort_2").setAttribute('class', 'bi bi-caret-down');
+                     document.getElementById("sort_1").setAttribute('class', 'bi bi-caret-up');
+                 }
+                else if (ibuttonname == "bi bi-caret-down-fill"){
+                     ibutton.setAttribute('class', 'bi bi-caret-up-fill');
+{#                     正序排序#}
+                     document.getElementById("order-method").setAttribute("name","5")
+                      var order_m = "5"
+                     document.getElementById("sort_2").setAttribute('class', 'bi bi-caret-down');
+                     document.getElementById("sort_1").setAttribute('class', 'bi bi-caret-up');
+                 }
+                $.ajax({url:window.location.href,
+                      type:'POST',
+                      data:{'entrance':'order','method':order_m,csrfmiddlewaretoken: '{{ csrf_token }}'},
+                      dataType:'JSON',
+                      traditional:true,
+                      success:function(arg){
+                            if(arg.status){
+                                var goods=arg.message;
+                                console.log(goods)
+                                refreshgoods(goods)
+                       }
+                            }}
+                    )
+            }
+            function jumpsearch(data) {
+                var searchquery = document.getElementById("search-1").value;
+                var query = data.innerHTML;
+                console.log(query)
+                location.href = 'http://127.0.0.1:8000/result/query='+searchquery+query+'/tag=0/'
+            }
+
+            var myChart = echarts.init(document.getElementById('ss'));
+            var myChart2 = echarts.init(document.querySelector("#s1"));
+
+            function open_detail(data) {
+                var sku_id = data.getAttribute("name")
+                $.ajax({url:window.location.href,
+                      type:'POST',
+                      data:{'entrance':'pic','sku_id':sku_id,csrfmiddlewaretoken: '{{ csrf_token }}'},
+                      dataType:'JSON',
+                      traditional:true,
+                      success:function(arg){
+                            if(arg.status){
+                                var goods=arg.message;
+                                var imgpath = goods['ciyunpath']
+                                document.querySelector(".ciyunpic").setAttribute("src",imgpath)
+                                var data = goods['datasandian']
+                                var chartDom = document.getElementById('ss');
+                                var option;
+                                option = {
+                                        legend: {
+                                          right: '10%',
+                                          top: '3%',
+                                          data: ['0', '1','2']
+                                        },
+                                        grid: {
+                                          left: '8%',
+                                          top: '10%'
+                                        },
+                                        xAxis: {
+                                          splitLine: {
+                                            lineStyle: {
+                                              type: 'dashed'
+                                            }
+                                          }
+                                        },
+                                        yAxis: {
+                                          splitLine: {
+                                            lineStyle: {
+                                              type: 'dashed'
+                                            }
+                                          },
+                                          scale: true
+                                        },
+                                        series: [{
+                                            name: '0',
+                                            data: data[0],
+                                            type: 'scatter',
+                                            symbolSize: function(data) {
+                                              return data[2]*2;
+                                            },
+                                            emphasis: {
+                                              focus: 'series',
+                                              label: {
+                                                show: true,
+                                                formatter: function(param) {
+                                                  return param.data[3];
+                                                },
+                                                position: 'top'
+                                              }
+                                            },
+                                            itemStyle: {
+                                              color: 'rgb(251, 118, 123)'
+                                            }
+                                          },
+                                          {
+                                            name: '1',
+                                            data: data[1],
+                                            type: 'scatter',
+                                            symbolSize: function(data) {
+                                              return (data[2]*2);
+                                            },
+                                            emphasis: {
+                                              focus: 'series',
+                                              label: {
+                                                show: true,
+                                                formatter: function(param) {
+                                                  return param.data[3];
+                                                },
+                                                position: 'top'
+                                              }
+                                            },
+                                            itemStyle: {
+                                              color: 'rgb(129, 227, 238)'
+                                            }
+                                          },
+                                            {
+                                            name: '2',
+                                            data: data[2],
+                                            type: 'scatter',
+                                            symbolSize: function(data) {
+                                              return (data[2]*2);
+                                            },
+                                            emphasis: {
+                                              focus: 'series',
+                                              label: {
+                                                show: true,
+                                                formatter: function(param) {
+                                                  return param.data[3];
+                                                },
+                                                position: 'top'
+                                              }
+                                            },
+                                            itemStyle: {
+                                              color: 'grey'
+                                            }},
+                                             {
+                                            name: '3',
+                                            data: data[3],
+                                            type: 'scatter',
+                                            symbolSize: function(data) {
+                                              return (data[2]*2);
+                                            },
+                                            emphasis: {
+                                              focus: 'series',
+                                              label: {
+                                                show: true,
+                                                formatter: function(param) {
+                                                  return param.data[3];
+                                                },
+                                                position: 'top'
+                                              }
+                                            },
+                                            itemStyle: {
+                                              color: 'yellow'
+                                            }}
+                                        ]
+                                      }
+                                option && myChart.setOption(option);
+                                var dataradar = goods['dataradar']
+                                myChart2.setOption({
+                                 radar: {
+                                  // shape: 'circle',
+                                  indicator: [{
+                                      name: '评论数',
+                                      max: 1
+                                    },
+                                    {
+                                      name: '价格',
+                                      max: 1
+                                    },
+                                    {
+                                      name: '好评率',
+                                      max: 1
+                                    }
+                      ]
+                    },
+                                series: [{
+                                  name: 'Budget vs spending',
+                                  type: 'radar',
+                                  data: [{
+                                      value: dataradar,
+                                      name: 'Allocated Budget'
+                                    },
+                                  ],
+                                    emphasis: {
+                                      focus: 'series',
+                                      label: {
+                                        show: true,
+                                        formatter: function(data) {
+                                          return data.value;
+                                        },
+                                        position: 'top'
+                                      }}
+                                }]
+                              });
+                       }
+                            }}
+                    )
+                document.getElementById("cover").style.display = "block";
+                document.getElementById("detail_pic").style.display = "block";
+            }
+            function close_detail() {
+                document.getElementById("cover").style.display = "none";
+                document.getElementById("detail_pic").style.display = "none";
+            }
+            function tagsearch() {
+                var checkDomArr = document.querySelectorAll('.tagchoose input[type=checkbox]:checked');
+                if (checkDomArr.length != 0){
+                    var checkValues = checkDomArr[0].value;
+                    for (var i = 1, len = checkDomArr.length; i < len; i++) {
+                        checkValues=checkValues+'_'+checkDomArr[i].value
+                      };}
+                else{
+                    var checkValues = "0"
+                }
+                var query=window.location.href.match( /(?<=query=).*?(?=\/)/)[0]
+                location.href = 'http://127.0.0.1:8000/result/query='+query+'/tag='+checkValues+'/'
+            }
+            function pricesearch(){
+                var minprice = document.getElementById("minprice").value
+                if (minprice.length == 0){minprice="0"}
+                var maxprice = document.getElementById("maxprice").value
+                if (maxprice.length == 0){maxprice="99999"}
+                var ordermethod = document.getElementById("order-method").getAttribute("name")
+                 $.ajax({url:window.location.href,
+                      type:'POST',
+                      data:{'entrance':'price','method':ordermethod,'minprice':minprice,'maxprice':maxprice,csrfmiddlewaretoken: '{{ csrf_token }}'},
+                      dataType:'JSON',
+                      traditional:true,
+                      success:function(arg){
+                            if(arg.status){
+                                var goods=arg.message;
+                                console.log(goods)
+                                refreshgoods(goods)
+                       }
+                            }}
+                    )
+
+            }
+        </script>
+
+	</body>
+</html>
