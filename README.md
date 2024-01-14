@@ -10,8 +10,8 @@ The Product Searching System is a Django-based interactive web application desig
 - Ajax Interaction: Implement seamless interaction between the frontend and backend, allowing partial updates of the webpage for a smooth user experience.
 
 ## Sample:
-![img.png](img.png)
-![img_1.png](img_1.png)
-![img_2.png](img_2.png)
-![img_3.png](img_3.png)
-![img_4.png](img_4.png)
+![img.png](readme_img%2Fimg.png)
+![img_1.png](readme_img%2Fimg_1.png)
+![img_2.png](readme_img%2Fimg_2.png)
+![img_3.png](readme_img%2Fimg_3.png)
+![img_4.png](readme_img%2Fimg_4.png)
